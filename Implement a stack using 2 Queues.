@@ -1,0 +1,71 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class stack2
+{
+     Queue<Integer> q1 = new LinkedList<>();
+	 Queue<Integer> q2 = new LinkedList<>();
+	int cur_size;
+	public  stack2()
+	{
+		cur_size = 0;
+	}
+	void push(int x)
+	{
+		q1.add(x);
+		cur_size++;
+	}
+	void pop()
+	{
+		if(q1.isEmpty())
+		{
+			System.out.println("Stack is Empty");
+		}
+		while(q1.size()!=1)
+		{
+			q2.add(q1.peek());
+			q1.remove();
+		}
+		q1.remove();
+		cur_size--;
+		
+		Queue<Integer> q = q1;
+		q1 = q2;
+		q2 = q;
+	}
+	int top()
+	{
+		if(q1.isEmpty())
+			return -1;
+		while(q1.size()!=1)
+		{
+			q2.add(q1.peek());
+			q1.remove();
+		}
+		int temp = q1.remove();
+		q2.add(temp);
+		Queue<Integer> q = q1;
+		q1=q2;
+		q2=q;
+		return temp;
+	}
+	int size()
+	{
+		return cur_size;
+	}
+	public static void main(String args[])
+	{
+		stack2 s = new stack2();
+		s.push(1);
+		s.push(2);
+		s.push(3);
+		System.out.println(s.size());
+		s.pop();
+		System.out.println(s.size());
+		System.out.println(s.top());
+		s.pop();
+		s.pop();
+		System.out.println(s.top());
+		
+	}
+	
